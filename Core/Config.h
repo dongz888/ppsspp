@@ -196,6 +196,7 @@ public:
 	bool bGfxDebugOutput;
 	bool bGfxDebugSplitSubmit;
 	int iInflightFrames;
+	bool bRenderDuplicateFrames;
 
 	// Sound
 	bool bEnableSound;

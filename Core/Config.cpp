@@ -775,6 +775,7 @@ static ConfigSetting graphicsSettings[] = {
 	ConfigSetting("LogFrameDrops", &g_Config.bLogFrameDrops, false, true, false),
 
 	ConfigSetting("InflightFrames", &g_Config.iInflightFrames, 3, true, true),
+	ConfigSetting("RenderDuplicateFrames", &g_Config.bRenderDuplicateFrames, false, true, true),
 
 	ConfigSetting(false),
 };
