@@ -166,6 +166,10 @@ endif()
 
 include_directories(ext/native)
 
+# Work around for some misfeature of the current glslang build system 
+include_directories(ext/glslang)
+
+
 if(NOT OPENGL_LIBRARIES AND USING_GLES2)
 	set(OPENGL_LIBRARIES GLESv2 EGL)
 endif()
@@ -838,6 +842,7 @@ list(APPEND NativeAppSource
 	UI/DiscordIntegration.cpp
 	UI/NativeApp.cpp
 	UI/BackgroundAudio.cpp
+	UI/ChatScreen.cpp
 	UI/DevScreens.cpp
 	UI/DisplayLayoutEditor.cpp
 	UI/DisplayLayoutScreen.cpp
@@ -1035,6 +1040,8 @@ add_library(native STATIC
 	ext/native/thread/threadutil.h
 	ext/native/thread/threadpool.cpp
 	ext/native/thread/threadpool.h
+	ext/native/ui/root.cpp
+	ext/native/ui/root.h
 	ext/native/ui/screen.cpp
 	ext/native/ui/screen.h
 	ext/native/ui/ui.cpp

@@ -86,6 +86,7 @@
 #include "Core/HLE/sceCtrl.h"
 #include "Core/HLE/sceUsbCam.h"
 #include "Core/HLE/sceUsbGps.h"
+#include "Core/HLE/proAdhoc.h"
 #include "Core/Util/GameManager.h"
 #include "Core/Util/AudioFormat.h"
 #include "Core/WebServer.h"
@@ -537,6 +538,7 @@ void NativeInit(int argc, const char *argv[], const char *savegame_dir, const ch
 	const char *stateToLoad = 0;
 
 	bool gotBootFilename = false;
+	boot_filename = "";
 
 	// Parse command line
 	LogTypes::LOG_LEVELS logLevel = LogTypes::LINFO;
@@ -1103,6 +1105,29 @@ void HandleGlobalMessage(const std::string &msg, const std::string &value) {
 			g_Config.sRemoteISOSubdir = setString;
 		else if (inputboxValue[0] == "remoteiso_server")
 			g_Config.sLastRemoteISOServer = setString;
+
+		if (inputboxValue[0] == "quickchat0")
+			g_Config.sQuickChat0 = setString;
+		if (inputboxValue[0] == "quickchat1")
+			g_Config.sQuickChat1 = setString;
+		if (inputboxValue[0] == "quickchat2")
+			g_Config.sQuickChat2 = setString;
+		if (inputboxValue[0] == "quickchat3")
+			g_Config.sQuickChat3 = setString;
+		if (inputboxValue[0] == "quickchat4")
+			g_Config.sQuickChat4 = setString;
+		if (inputboxValue[0] == "nickname")
+			g_Config.sNickName = setString;
+		if (inputboxValue[0] == "Chat") {
+			if (inputboxValue.size() > 2) 
+			{
+				std::string chatString = value;
+				chatString.erase(0, 5);
+				sendChat(chatString);
+			} else {
+				sendChat(setString);
+			}
+		}
 		inputboxValue.clear();
 	}
 	if (msg == "bgImage_updated") {
@@ -1149,7 +1174,7 @@ void HandleGlobalMessage(const std::string &msg, const std::string &value) {
 		// and I can't risk it before 1.9.0.
 		int gpuBackend = g_Config.iGPUBackend;
 		ILOG("Reloading config after storage permission grant.");
-		g_Config.Load();
+		g_Config.Reload();
 		PostLoadConfig();
 		g_Config.iGPUBackend = gpuBackend;
 	}
